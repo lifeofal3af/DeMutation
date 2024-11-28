@@ -22,11 +22,11 @@ jobs:
     - name: Build project
       run: dotnet build DeMutation.sln -c Release  # Build the project in Release mode
 
-    - name: Run tests (optional)
-      run: dotnet test DeMutation.sln  # Run tests if you have any unit tests in the solution
+    - name: List build output files (for debugging)
+      run: dir D:\a\DeMutation\DeMutation\DeMutation\bin\Release\  # List the contents of the output directory (for debugging)
 
-    - name: Upload Artifact
+    - name: Upload All Build Artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: DeMutation-artifact  # Name of the artifact
-        path: DeMutation/bin/Release/net9.0  # Path to the output directory (adjust based on your target framework version)
+        name: DeMutation-artifacts  # Name of the artifact
+        path: D:\a\DeMutation\DeMutation\DeMutation\bin\Release\*  # Use wildcard to upload all files in the directory
