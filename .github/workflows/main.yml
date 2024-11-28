@@ -1,13 +1,7 @@
 name: Build and Upload Artifact
 
 on:
-  workflow_dispatch:  # This allows manual triggering of the workflow
-  # Optional: You can define input parameters for the workflow here, like:
-  # inputs:
-  #   buildType:
-  #     description: 'Choose the build type (Release/Debug)'
-  #     required: true
-  #     default: 'Release'
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   build:
@@ -20,7 +14,7 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '7.0'  # Use the version of .NET required for your project
+        dotnet-version: '9.0'  # Use the version of .NET required for your project
 
     - name: Restore dependencies
       run: dotnet restore DeMutation.sln  # Restore the project's dependencies
@@ -31,11 +25,8 @@ jobs:
     - name: Run tests (optional)
       run: dotnet test DeMutation.sln  # Run tests if you have any unit tests in the solution
 
-    - name: Publish project
-      run: dotnet publish DeMutation.sln -c Release -o ./output  # Publish the project to a folder
-
     - name: Upload Artifact
       uses: actions/upload-artifact@v3
       with:
         name: DeMutation-artifact  # Name of the artifact
-        path: ./output  # Path to the folder where the published project is located
+        path: DeMutation/bin/Release/net9.0  # Path to the output directory (adjust based on your target framework version)
